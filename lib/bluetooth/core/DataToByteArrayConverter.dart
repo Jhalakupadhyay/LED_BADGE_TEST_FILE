@@ -188,7 +188,7 @@ String getSizes(DataToSend data) {
             int.parse((length & 0xFF).toRadixString(16).padLeft(2, '0')),
           ]))
       .join()
-      .padRight(MAX_MESSAGES - nbMessages * 4, '0');
+      .padRight(32- nbMessages * 4 + 4, '0');
   print("get sizes = " + ans);
   return ans;
 }
@@ -217,7 +217,7 @@ String getMessage(DataToSend data) {
       .map((e) => charCodes[e])
       .join();
   print("get message = " + ans);
-  return ans;
+  return ans; 
 }
 
 //filling he rest length with the 0
@@ -226,5 +226,15 @@ String fillZeros(int length) {
       (((length / (PACKET_BYTE_SIZE * 2) + 1) * PACKET_BYTE_SIZE * 2) - length)
           .toInt();
   print("Fill wit zeroes = " + ans);
+  return ans;
+}
+
+
+//function to display messages on the virtual badge
+List<int> displayVirtualBadge(DataToSend data)
+{
+  String display = getMessage(data);
+  List<int> ans = hexStringToByteArray(display);
+  print(ans);
   return ans;
 }
